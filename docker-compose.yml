@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  db:
+    image: PostgreSQL
+    container_name: PostgreSQL_container
+    environment:
+      PostgreSQL_ROOT_PASSWORD: "${PASSWORD}"
+    ports:
+      - "5432:5432"
+    volumes:
+      - my_db:/var/lib/PostgreSQL
+  adminer:
+    image: adminer
+    container_name: adminer_container_db
+    ports:
+      - 8080:8080
+volumes:
+  my_db:
