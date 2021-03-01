@@ -1,3 +1,3 @@
 # This is liFeHaKK's repo for the main project 
-## Good things are coming soon 
+## Good things are coming very soon
 
