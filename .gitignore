@@ -2,4 +2,4 @@
 .env
 .pycache
 .venv
-.csv
+*.csv
