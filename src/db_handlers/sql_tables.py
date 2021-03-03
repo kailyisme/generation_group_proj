@@ -59,3 +59,7 @@ conn = db_connection.postgre_conn()
 def init_tables():
     for table in tables_list:
         db_connection.commit(conn, eval(table))
+
+
+if __name__ == "__main__":
+    init_tables()
