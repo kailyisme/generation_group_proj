@@ -130,25 +130,71 @@ def product_table(products_raw,type_table_data,size_table_data):
                 
         product.append({"id":uuid.uuid4(),"type_id":type_id,"product":dic["product"],"size_id":size_id,"price":dic["price"],"temp_id":dic["temp_id"]})
 
-    # print(tabulate.tabulate(product, headers="keys"))
     return product 
 
 
+def transaction(df,store_data):
+    store_loca = []
+    for i in range(len(df["Date-Time"])):
+        
+        
+        date_time = (df["Date-Time"].iloc[i])
+        payment_type = (df["payment_type"].iloc[i])
+        total_amount = (df["total_amount"].iloc[i])
+
+        temp_id = (df["temp_id"].iloc[i])
+        
+        temp_store = (df["location"].iloc[i])
+        
+        for dic in store_data:
+            
+            if dic["store"] == temp_store:
+                store_id = dic["id"]
+                
+        store_loca.append({"id":uuid.uuid4(),"date_time":date_time,"store_id":store_id,"payment_type":payment_type,"total":total_amount,"temp_id":temp_id})
+                
+    return store_loca
+    
+        
+def basket(transaction_data,product_table_data):   
+    basket = []
+    for ids in transaction_data:
+        temp_trans_id = ids["id"]
+        
+        for dic in product_table_data:
+            if dic["temp_id"] == ids["temp_id"]:
+            
+                basket.append({"id":uuid.uuid4(),"transaction_id":temp_trans_id,"product_id":dic["id"]})
+    
+    return basket
+    
+    
+    
+    
+    
 
 products_raw = split_item(df)    
 
 type_table_data = type_table(products_raw)
+
 size_table_data = size_table(products_raw)
 
 store_location_data = store_table(df)
 
 product_table_data = product_table(products_raw,type_table_data,size_table_data)
 
+transaction_data = transaction(df,store_location_data)
 
-print(tabulate.tabulate(type_table_data, headers="keys"))
+basket_data = basket(transaction_data,product_table_data)
 
-print(tabulate.tabulate(size_table_data, headers="keys"))
+# print(tabulate.tabulate(type_table_data, headers="keys"))
 
-print(tabulate.tabulate(store_location_data, headers="keys"))
+# print(tabulate.tabulate(size_table_data, headers="keys"))
 
-print(tabulate.tabulate(product_table_data, headers="keys"))
+# print(tabulate.tabulate(store_location_data, headers="keys"))
+
+# print(tabulate.tabulate(product_table_data, headers="keys"))
+
+# print(tabulate.tabulate(transaction_data, headers="keys"))
+
+# print(tabulate.tabulate(basket_data, headers="keys"))
