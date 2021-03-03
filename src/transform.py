@@ -108,6 +108,7 @@ def store_table(data):
 def product_table(products_raw,type_table_data,size_table_data):
     
     product = []
+    product_true = []
     for dic in products_raw:
 
         size_temp = dic["size"]
@@ -127,9 +128,10 @@ def product_table(products_raw,type_table_data,size_table_data):
             if t["type"] == type_temp:
                 type_id = t["id"] 
            
-                
+        product.append({"id":uuid.uuid4(),"type_id":type_id,"product":dic["product"],"size_id":size_id,"price":dic["price"]})        
         product.append({"id":uuid.uuid4(),"type_id":type_id,"product":dic["product"],"size_id":size_id,"price":dic["price"],"temp_id":dic["temp_id"]})
 
+        x = list(set
     return product 
 
 
