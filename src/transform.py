@@ -4,7 +4,7 @@ import tabulate
 
 
 
-df = pd.read_csv("2021-02-23-isle-of-wight.csv", header=None)
+df = pd.read_csv("./data/2021-02-23-isle-of-wight.csv", header=None)
 
 
 headings = ["Date-Time","location","customer_name","items","payment_type","total_amount","card_details"]
@@ -51,8 +51,6 @@ def split_item(df):
         else:
             dic["type"]= "NaN"
             
-    # print(products)
- 
     return products
 
 
@@ -71,7 +69,7 @@ def type_table(data):
     
     types = []
     for i in all_types:
-     types.append((uuid.uuid4(),i))   
+     types.append({"id":uuid.uuid4(),"type":i})   
     
     return types
 
@@ -87,9 +85,8 @@ def size_table(data):
     
     sizes = []
     for i in all_sizes:
-     sizes.append((uuid.uuid4(),i))   
+     sizes.append({"id":uuid.uuid4(),"size":i})   
     
-    print(tabulate.tabulate(sizes))
     return sizes
 
 
@@ -104,15 +101,37 @@ def store_table(data):
     
     stores = []
     for i in all_stores:
-        stores.append((uuid.uuid4(),i))
+        stores.append({"id":uuid.uuid4(),"store":i})
         
     return stores
 
 def product_table(products_raw,type_table_data,size_table_data):
     
+    product = []
     for dic in products_raw:
-        # if dic["product"] == 
+
+        size_temp = dic["size"]
+        type_temp = dic["type"]
         
+        
+        size_id = size_temp
+        type_id = type_temp
+        
+        for s in size_table_data:
+            
+            if s["size"] == size_temp:
+                size_id = s["id"] 
+                
+        for t in type_table_data:
+            
+            if t["type"] == type_temp:
+                type_id = t["id"] 
+           
+                
+        product.append({"id":uuid.uuid4(),"type_id":type_id,"product":dic["product"],"size_id":size_id,"price":dic["price"],"temp_id":dic["temp_id"]})
+
+    # print(tabulate.tabulate(product, headers="keys"))
+    return product 
 
 
 
@@ -120,8 +139,16 @@ products_raw = split_item(df)
 
 type_table_data = type_table(products_raw)
 size_table_data = size_table(products_raw)
+
 store_location_data = store_table(df)
 
-print(tabulate.tabulate(type_table_data))
-print(tabulate.tabulate(size_table_data))
-print(tabulate.tabulate(store_location_data))
+product_table_data = product_table(products_raw,type_table_data,size_table_data)
+
+
+print(tabulate.tabulate(type_table_data, headers="keys"))
+
+print(tabulate.tabulate(size_table_data, headers="keys"))
+
+print(tabulate.tabulate(store_location_data, headers="keys"))
+
+print(tabulate.tabulate(product_table_data, headers="keys"))
