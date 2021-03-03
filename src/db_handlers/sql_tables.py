@@ -1,3 +1,6 @@
+from src.db_handlers import db_connection
+
+
 # create tables commands
 SQL_store_table = "CREATE TABLE IF NOT EXISTS store (\
     store_uuid UUID PRIMARY KEY,\
@@ -39,3 +42,20 @@ SQL_basket = "CREATE TABLE IF NOT EXISTS basket (\
     transaction_uuid UUID REFERENCES transaction(transaction_uuid),\
     product_uuid UUID REFERENCES product(product_uuid)\
     );"
+
+tables_list = [
+    "SQL_store_table",
+    "SQL_size",
+    "SQL_type",
+    "SQL_product",
+    "SQL_transaction",
+    "SQL_basket",
+]
+
+# making sure tables already exist
+conn = db_connection.postgre_conn()
+
+
+def init_tables():
+    for table in tables_list:
+        db_connection.commit(conn, eval(table))
