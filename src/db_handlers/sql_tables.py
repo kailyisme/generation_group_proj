@@ -44,12 +44,12 @@ SQL_basket = "CREATE TABLE IF NOT EXISTS basket (\
     );"
 
 tables_list = [
-    "SQL_store_table",
-    "SQL_size",
-    "SQL_type",
-    "SQL_product",
-    "SQL_transaction",
-    "SQL_basket",
+    SQL_store_table,
+    SQL_size,
+    SQL_type,
+    SQL_product,
+    SQL_transaction,
+    SQL_basket,
 ]
 
 # making sure tables already exist
@@ -58,7 +58,7 @@ conn = db_connection.postgre_conn()
 
 def init_tables():
     for table in tables_list:
-        db_connection.commit(conn, eval(table))
+        db_connection.commit(conn, table)
 
 
 if __name__ == "__main__":
