@@ -26,6 +26,9 @@ def postgre_conn():
             return psycopg2.connect(
                 database=DB, user=USER, password=PASSWORD, host=HOST, port=PORT
             )
+        else:
+            print(e)
+            exit()
 
 
 def commit(conn, sql, values=[]):
