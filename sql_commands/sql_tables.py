@@ -3,15 +3,13 @@ import os
 from dotenv import load_dotenv
 from dotenv.main import get_key
 
+load_dotenv()
+
 HOST = os.environ.get("POSTGRES_HOST")
-print(HOST)
 USER = os.environ.get("POSTGRES_USER")
 PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DB = os.environ.get("POSTGRES_DB")
-print(os.environ.get("POSTGRES_PORT"))
-PORT = int(os.environ.get("POSTGRES_PORT"))
-
-print(HOST)
+PORT = (os.environ.get("POSTGRES_PORT"))
 
 
 def postgre_conn():
