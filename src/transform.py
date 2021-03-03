@@ -135,15 +135,24 @@ def product_table(products_raw,type_table_data,size_table_data):
     product_df.drop_duplicates(inplace=True)
     product_df["id"]= [uuid.uuid4() for i in range(len(product_df.index))]
     
-    print(product_df)
+    # print(product_df)
 
     product = product_df.to_dict('records') 
-    
     
     return product, product_temp_id
 
 def basket_product(product_table_data,product_temp_id):
+    
+    
+    def get_product_table():
+        sql ="select * from product"
+        db_product_data =query(conn,sql)
+            return db_product_data
+    
+    db_product_data = get_product_table()
+    
     basket_p_id = []
+    
     for dic_id in product_temp_id:
         for dic in product_table_data:
             if (dic_id["type_id"] == dic["type_id"] and 
@@ -152,9 +161,13 @@ def basket_product(product_table_data,product_temp_id):
                 dic_id["price"] == dic["price"]):
                 
                 basket_p_id.append({"temp_id":dic_id["temp_id"],"product_uuid":dic["id"]})
-                
-    print(tabulate.tabulate(basket_p_id, headers="keys"))
+            
+        else:
+             
+            
 
+                
+    return basket_p_id
             
 
 
@@ -182,15 +195,15 @@ def transaction(df,store_data):
     return store_loca
     
         
-def basket(transaction_data,product_table_data):   
+def basket(transaction_data,basket_p_id):   
     basket = []
     for ids in transaction_data:
         temp_trans_id = ids["id"]
         
-        for dic in product_table_data:
+        for dic in basket_p_id:
             if dic["temp_id"] == ids["temp_id"]:
             
-                basket.append({"id":uuid.uuid4(),"transaction_id":temp_trans_id,"product_id":dic["id"]})
+                basket.append({"id":uuid.uuid4(),"transaction_id":temp_trans_id,"product_id":dic["product_uuid"]})
     
     return basket
     
@@ -209,10 +222,11 @@ store_location_data = store_table(df)
 
 product_table_data, product_temp_id = product_table(products_raw,type_table_data,size_table_data)
 
-basket_product(product_table_data,product_temp_id)
-# transaction_data = transaction(df,store_location_data)
+basket_product_data = basket_product(product_table_data,product_temp_id)
 
-# basket_data = basket(transaction_data,product_table_data)
+transaction_data = transaction(df,store_location_data)
+
+basket_data = basket(transaction_data,basket_product_data)
 
 # print(tabulate.tabulate(type_table_data, headers="keys"))
 
@@ -225,4 +239,4 @@ basket_product(product_table_data,product_temp_id)
 
 # print(tabulate.tabulate(transaction_data, headers="keys"))
 
-# print(tabulate.tabulate(basket_data, headers="keys"))
+print(tabulate.tabulate(basket_data, headers="keys"))
