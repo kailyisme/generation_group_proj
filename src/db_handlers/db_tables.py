@@ -5,13 +5,5 @@ with open("src/db_handlers/tables.sql") as sql_file:
     sql_file_string = sql_file.read()
 
 
-# making sure tables already exist
-conn = db_connection.postgre_conn()
-
-
-def init_tables():
+def init_tables(conn):
     db_connection.commit(conn, sql_file_string)
-
-
-if __name__ == "__main__":
-    init_tables()
