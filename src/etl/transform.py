@@ -1,8 +1,3 @@
-import pandas as pd 
-import uuid
-import tabulate
-
-
 def cleaning_csv(df):
 
     df.drop(columns=["customer_name","card_details"], inplace=True) 
