@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS store (
     location VARCHAR(255)
     );
 
-CREATE TABLE IF NOT EXISTS product_size (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255)
-    );
+-- CREATE TABLE IF NOT EXISTS product_size (
+--     id SERIAL PRIMARY KEY,
+--     name VARCHAR(255)
+--     );
 
 
 CREATE TABLE IF NOT EXISTS product_type (
@@ -19,8 +19,9 @@ CREATE TABLE IF NOT EXISTS product (
     uuid UUID PRIMARY KEY,
     type_id INTEGER REFERENCES product_type(id),
     name VARCHAR(255),
-    size_id INTEGER REFERENCES product_size(id),
-    price MONEY
+    size VARCHAR(255),
+    -- size_id INTEGER REFERENCES product_size(id),
+    price NUMERIC(6,2)
     );
 
 
@@ -29,7 +30,7 @@ CREATE TABLE IF NOT EXISTS transaction (
     datetime TIMESTAMP,
     store_uuid UUID REFERENCES store(uuid),
     payment_type VARCHAR(4),
-    total_amount MONEY
+    total_amount NUMERIC(6,2)
     );
 
 
