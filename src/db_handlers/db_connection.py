@@ -35,3 +35,10 @@ def commit(conn, sql, values=[]):
     conn.autocommit = True
     with conn.cursor() as cursor:
         cursor.execute(sql, values)
+    conn.autocommit = False
+
+
+def query(conn, sql, values=[]):
+    with conn.cursor() as cursor:
+        cursor.execute(sql, values)
+        return cursor.fetchall()
