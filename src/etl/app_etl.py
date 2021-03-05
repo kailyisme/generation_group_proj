@@ -14,4 +14,4 @@ transform_data = transform_run(data)
 #     if i == 10:
 #         break
 
-load_into_db(conn, transform_data)
+load_into_db(conn, transform_data[:10])

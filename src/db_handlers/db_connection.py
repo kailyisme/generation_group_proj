@@ -60,7 +60,7 @@ def insert_into_table(conn, table_name, to_insert:dict):
 
 
 def fetch_entry(conn, table_name, column_names, entry_values):
-    sql_query = f"SELECT * FROM {table_name} WHERE "
+    sql_query = f"SELECT * FROM {table_name} WHERE"
     for column_name in column_names:
         sql_query += f" {column_name} = %s AND"
     sql_query = sql_query[:-4]
