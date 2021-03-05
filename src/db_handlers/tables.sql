@@ -6,7 +6,13 @@ CREATE TABLE IF NOT EXISTS product_type (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
-CREATE TYPE SIZE AS ENUM('Small', 'Regular', 'Large');
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'SIZE') THEN
+        CREATE TYPE SIZE AS ENUM('Small', 'Regular', 'Large');
+    END IF;
+END
+$$;
 CREATE TABLE IF NOT EXISTS product (
     uuid UUID PRIMARY KEY,
     type_id UUID REFERENCES product_type(id),

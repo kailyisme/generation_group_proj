@@ -42,3 +42,24 @@ def query(conn, sql, values=[]):
     with conn.cursor() as cursor:
         cursor.execute(sql, values)
         return cursor.fetchall()
+
+
+def insert_into_table(conn, table_name, to_insert:dict):
+    sql_query = f"INSERT INTO {table_name}("
+    query_values = ""
+    values = []
+    for key in to_insert:
+        query_values += "%s,"
+        sql_query += f"{key},"
+        values.append(to_insert[key])
+    sql_query = sql_query[:-1]  # Remove trailing comma
+    sql_query += ") VALUES ("
+    sql_query += f"{query_values[:-1]})"
+    commit(conn, sql_query, tuple(values))
+
+
+def fetch_entry(conn, table_name, column_name, entry_value):
+    sql_query = f"SELECT * FROM {table_name} WHERE {column_name} = %s"
+    with conn.cursor() as cursor:
+        cursor.execute(sql_query, entry_value)
+        return cursor.fetchone()
