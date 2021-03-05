@@ -19,20 +19,22 @@ def load_into_db(conn, transform_data):
             item_size = "Regular"
             if item["size"] != "":
                 item_size = item["size"]
-            item_type = None
+            
+            item_type = "Unidentified"
             item_type_uuid = None
             if item["type"] != "":
                 item_type = item["type"]
-                item_type_uuid = db.fetch_entry(
-                    conn, "product_type", ["name"], [item_type]
+            item_type_uuid = db.fetch_entry(
+                conn, "product_type", ["name"], [item_type]
+            )
+            if item_type_uuid == None:
+                item_type_uuid = str(uuidgen())
+                db.insert_into_table(
+                    conn, "product_type", {"id": item_type_uuid, "name": item_type}
                 )
-                if item_type_uuid == None:
-                    item_type_uuid = str(uuidgen())
-                    db.insert_into_table(
-                        conn, "product_type", {"id": item_type_uuid, "name": item_type}
-                    )
-                else:
-                    item_type_uuid = item_type_uuid[0]
+            else:
+                item_type_uuid = item_type_uuid[0]
+            
             item_name = item["name"]
             item_price = item["price"]
             product_uuid = db.fetch_entry(

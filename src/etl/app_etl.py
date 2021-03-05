@@ -9,9 +9,4 @@ conn = db_init.init_db()
 
 data = extract_csv()
 transform_data = transform_run(data)
-# for i, row in enumerate(transform_data):
-#     print(f"{i}\n", row)
-#     if i == 10:
-#         break
-
-load_into_db(conn, transform_data[:10])
+load_into_db(conn, transform_data)

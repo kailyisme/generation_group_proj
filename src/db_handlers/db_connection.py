@@ -67,3 +67,4 @@ def fetch_entry(conn, table_name, column_names, entry_values):
     with conn.cursor() as cursor:
         cursor.execute(sql_query, entry_values)
         return cursor.fetchone()
+    
