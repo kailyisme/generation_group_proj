@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS product (
 CREATE TABLE IF NOT EXISTS transaction (
     id UUID PRIMARY KEY,
     datetime TIMESTAMP NOT NULL,
-    store_uuid UUID REFERENCES store(uuid) NOT NULL,
+    store_id UUID REFERENCES store(id) NOT NULL,
     payment_type VARCHAR(4) NOT NULL,
     total_amount NUMERIC(6, 2) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS basket (
     id UUID PRIMARY KEY,
-    transaction_uuid UUID REFERENCES transaction(uuid) NOT NULL,
-    product_uuid UUID REFERENCES product(uuid) NOT NULL
+    transaction_id UUID REFERENCES transaction(id) NOT NULL,
+    product_id UUID REFERENCES product(id) NOT NULL
 );
