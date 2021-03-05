@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS store (
-    uuid UUID PRIMARY KEY,
+    id UUID PRIMARY KEY,
     location VARCHAR(255) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS product_type (
@@ -14,14 +14,14 @@ BEGIN
 END
 $$;
 CREATE TABLE IF NOT EXISTS product (
-    uuid UUID PRIMARY KEY,
+    id UUID PRIMARY KEY,
     type_id UUID REFERENCES product_type(id),
     name VARCHAR(255) NOT NULL,
     size SIZE NOT NULL DEFAULT 'Regular',
     price NUMERIC(6, 2) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS transaction (
-    uuid UUID PRIMARY KEY,
+    id UUID PRIMARY KEY,
     datetime TIMESTAMP NOT NULL,
     store_uuid UUID REFERENCES store(uuid) NOT NULL,
     payment_type VARCHAR(4) NOT NULL,
