@@ -95,8 +95,6 @@ def add_temp_id(transform_data):
         dic["temp_id"] = temp_id
         temp_id += 1
     return transform_data
-
-
 # -------ended------
 
 
@@ -237,7 +235,7 @@ def basket(conn, items_ids, transaction_uuid_out):
                         "product_id": item["product_uuid"],
                     },
                 )
-
+    return transaction_uuid_out
 
 def load_db(conn, transform_data):
 
