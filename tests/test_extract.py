@@ -2,7 +2,6 @@ from unittest.mock import patch
 import pandas as pd
 from src.etl.extract import extract_csv
 
-
 @patch("pandas.read_csv")
 def test_extract_csv(mock_extract):
     expected = pd.DataFrame(

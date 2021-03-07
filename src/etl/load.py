@@ -46,7 +46,6 @@ def type_load(conn, transform_data):
 
     return transform_data
 
-
 def product_data(conn, transform_data):
     items_ids = []
     for row in transform_data:
@@ -89,7 +88,6 @@ def product_data(conn, transform_data):
 
             items_ids.append({"product_uuid": product_uuid, "temp_id": row["temp_id"]})
     return items_ids
-
 
 def transcation(conn, transform_data):
 
@@ -143,7 +141,6 @@ def basket(conn, items_ids, transaction_uuid_out):
                     },
                 )
     return transaction_uuid_out
-
 
 def load_db(conn, transform_data):
 
