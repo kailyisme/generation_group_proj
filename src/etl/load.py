@@ -237,6 +237,7 @@ def basket(conn, items_ids, transaction_uuid_out):
                 )
     return transaction_uuid_out
 
+
 def load_db(conn, transform_data):
 
     transform_data = add_temp_id(transform_data)
