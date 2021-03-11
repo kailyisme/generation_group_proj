@@ -100,7 +100,10 @@ def transcation(conn, transform_data):
 
         store = row["location"]
         store_uuid = db.fetch_entry(conn, "store", ["location"], [store])
+<<<<<<< HEAD
 
+=======
+>>>>>>> 255efc3e0ea38e0b8f8f1449f72b644fc99d8a37
         transaction_uuid = str(uuidgen())
 
         db.insert_into_table(
