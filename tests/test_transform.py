@@ -15,7 +15,7 @@ def test_cleaning_csv(mock_drop):
     )
     expected = pd.DataFrame({"test": ["test_answer"]}, columns=["test"])
     actual = cleaning_csv(fake_df)
-
+    
 
 def test_transform():
     fake_df = pd.DataFrame(
