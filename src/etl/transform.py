@@ -2,21 +2,20 @@ import src.etl.extract as ex
 
 
 def cleaning_csv(df):
-
     df = [
-        {line[key] for key in line if key != "customer_name" or key != "card_details"}
+        {
+            key: line[key]
+            for key in line
+            if key != "customer_name" or key != "card_details"
+        }
         for line in df
     ]
     return df
 
 
 def transform(df):
-
-    df["items"] = df["items"].str.split(",")
-
-    data = df.to_dict("records")
-
-    for dic in data:
+    for dic in df:
+        dic["items"] = dic["items"].split(",")
         new_items = []
         repeat = len(dic["items"]) // 3
         for i in range(repeat):
@@ -37,7 +36,7 @@ def transform(df):
             )
             del dic["items"][0:3]
         dic["items"] = new_items
-    return data
+    return df
 
 
 def transform_run(extract):
@@ -47,4 +46,4 @@ def transform_run(extract):
 
 
 # if __name__ == "__main__":
-#     print(cleaning_csv(ex.extract_csv(ex.filename))[:3])
+#     print(transform(cleaning_csv(ex.extract_csv(ex.filename)))[:3])
