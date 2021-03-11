@@ -1,7 +1,6 @@
 from src.db_handlers import db_connection as db
 from uuid import uuid4 as uuidgen
 
-
 def add_temp_id(transform_data):
     temp_id = 1
     for dic in transform_data:
