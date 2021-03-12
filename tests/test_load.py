@@ -10,50 +10,67 @@ from src.etl.load import (
 
 
 def test_add_temp_id():
-    mock_data = [
+    fake_data = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
         }
     ]
     expected = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
-    actual = add_temp_id(mock_data)
+    actual = add_temp_id(fake_data)
     assert actual == expected
+
 
 @patch("src.db_handlers.db_connection.fetch_entry")
 @patch("src.db_handlers.db_connection.insert_into_table")
 def test_store_load(mock_insert, mock_fetch):
     mock_data = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     mock_conn = []
     expected = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     actual = store_load(mock_conn, mock_data)
@@ -64,23 +81,31 @@ def test_store_load(mock_insert, mock_fetch):
 def test_type_load(mock_insert, mock_fetch):
     mock_data = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     mock_conn = []
     expected = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
-            "loation": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     actual = type_load(mock_conn, mock_data)
@@ -89,14 +114,18 @@ def test_type_load(mock_insert, mock_fetch):
 @patch("src.db_handlers.db_connection.fetch_entry")
 @patch("src.db_handlers.db_connection.insert_into_table")
 def test_product_data(mock_insert, mock_fetch):
+    mock_fetch.return_value = ["e8980e54-91bf-4132-93d2-10919142f434"]
     mock_data = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     mock_conn = []
@@ -104,17 +133,23 @@ def test_product_data(mock_insert, mock_fetch):
     actual = product_data(mock_conn, mock_data)
     assert actual == expected
 
+@patch("uuid.uuid4")
 @patch("src.db_handlers.db_connection.fetch_entry")
 @patch("src.db_handlers.db_connection.insert_into_table")
-def test_transcation(mock_insert, mock_fetch):
+def test_transcation(mock_insert, mock_fetch,mock_uuid):
+    # mock_fetch.return_value = ["e8980e54-91bf-4132-93d2-10919142f434"]
+    mock_uuid.side_effect = ["e8980e54-91bf-4132-93d2-10919142f434"]
     mock_data = [
         {
-            "Date-Time": "2021-02-23 09:01:45",
+            "Date-Time": "2021-02-23 09:00:48",
             "location": "Isle of Wight",
-            "items": [{"size": "Large", "type": "", "name": "Latte", "price": "2.45"}],
-            "payment_type": "CARD",
-            "total_amount": 2.45,
-            "temp_id": 1,
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "temp_id": 1
         }
     ]
     mock_conn = []
@@ -122,19 +157,20 @@ def test_transcation(mock_insert, mock_fetch):
         {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
     ]
     actual = transcation(mock_conn, mock_data)
+    print(actual)
     assert actual == expected
-
-@patch("src.db_handlers.db_connection.insert_into_table")
-def test_basket(mock_insert):
-    mock_trans_data = [
-        {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
-    ]
-    mock_conn = []
-    mock_item_id = [
-        {"product_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
-    ]
-    expected = [
-        {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
-    ]
-    actual = basket(mock_conn, mock_item_id, mock_trans_data)
-    assert actual == expected
+test_transcation()
+# @patch("src.db_handlers.db_connection.insert_into_table")
+# def test_basket(mock_insert):
+#     mock_trans_data = [
+#         {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
+#     ]
+#     mock_conn = []
+#     mock_item_id = [
+#         {"product_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
+#     ]
+#     expected = [
+#         {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
+#     ]
+#     actual = basket(mock_conn, mock_item_id, mock_trans_data)
+#     assert actual == expected

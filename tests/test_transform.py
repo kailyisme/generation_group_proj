@@ -1,99 +1,85 @@
-from unittest.mock import Mock, patch
-import pandas as pd
 from src.etl.transform import cleaning_csv, transform, transform_run
 
 
-@patch("pandas.DataFrame.drop")
-def test_cleaning_csv(mock_drop):
-    fake_df = pd.DataFrame(
+def test_cleaning_csv():
+    fake_df = [
         {
-            "test": ["test_answer"],
-            "customer_name": ["kat"],
-            "card_details": ["123test"],
-        },
-        columns=["test", "customer_name", "card_details"],
-    )
-    expected = pd.DataFrame({"test": ["test_answer"]}, columns=["test"])
-    actual = cleaning_csv(fake_df)
-    
-
-def test_transform():
-    fake_df = pd.DataFrame(
-        {
-            "Date-Time": ["2021-02-23 09:00:48"],
-            "location": ["Isle of Wight"],
-            "items": [
-                "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9"
-            ],
-            "payment_type": ["CASH"],
-            "total_amount": [8.4],
-        }
-    )
-    expected = [
-        {
-            "Date-Time": ["2021-02-23 09:00:48"],
-            "location": ["Isle of Wight"],
-            "items": [
-                [
-                    {
-                        "size": "Large",
-                        "type": "",
-                        "name": "Hot chocolate",
-                        "price": "2.9",
-                    },
-                    {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
-                    {
-                        "size": "Large",
-                        "type": "",
-                        "name": "Hot chocolate",
-                        "price": "2.9",
-                    },
-                ]
-            ],
-            "payment_type": ["CASH"],
-            "total_amount": [8.4],
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "customer_name": "Morgan Berka",
+            "items": "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9",
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "card_details": "None",
         }
     ]
+    expected = [
+        {
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "items": "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9",
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+        }
+    ]
+    actual = cleaning_csv(fake_df)
+    assert actual == expected
+
+
+def test_transform():
+    fake_df = [
+        {
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "items": "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9",
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+        }
+    ]
+    expected = [
+        {
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+        }
+    ]
+
     actual = transform(fake_df)
+    assert actual == expected
 
 
 def test_transform_run():
-    fake_df = pd.DataFrame(
+    fake_df = [
         {
-            "customer_name": ["kat"],
-            "card_details": ["123test"],
-            "Date-Time": ["2021-02-23 09:00:48"],
-            "location": ["Isle of Wight"],
-            "items": [
-                "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9"
-            ],
-            "payment_type": ["CASH"],
-            "total_amount": [8.4],
-        }
-    )
-    expected = [
-        {
-            "Date-Time": ["2021-02-23 09:00:48"],
-            "location": ["Isle of Wight"],
-            "items": [
-                [
-                    {
-                        "size": "Large",
-                        "type": "",
-                        "name": "Hot chocolate",
-                        "price": "2.9",
-                    },
-                    {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
-                    {
-                        "size": "Large",
-                        "type": "",
-                        "name": "Hot chocolate",
-                        "price": "2.9",
-                    },
-                ]
-            ],
-            "payment_type": ["CASH"],
-            "total_amount": [8.4],
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "customer_name": "Morgan Berka",
+            "items": "Large,Hot chocolate,2.9,Large,Chai latte,2.6,Large,Hot chocolate,2.9",
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+            "card_details": "None",
         }
     ]
-    actual = transform(fake_df)
+
+    expected = [
+        {
+            "Date-Time": "2021-02-23 09:00:48",
+            "location": "Isle of Wight",
+            "items": [
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+                {"size": "Large", "type": "", "name": "Chai latte", "price": "2.6"},
+                {"size": "Large", "type": "", "name": "Hot chocolate", "price": "2.9"},
+            ],
+            "payment_type": "CASH",
+            "total_amount": "8.40",
+        }
+    ]
+
+    actual = transform_run(fake_df)
+    assert actual == expected

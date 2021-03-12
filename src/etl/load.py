@@ -8,7 +8,6 @@ def add_temp_id(transform_data):
         temp_id += 1
     return transform_data
 
-
 def store_load(conn, transform_data):
 
     for row in transform_data:

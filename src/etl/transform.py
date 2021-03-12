@@ -6,7 +6,7 @@ def cleaning_csv(df):
         {
             key: line[key]
             for key in line
-            if key != "customer_name" or key != "card_details"
+            if key != "customer_name" and key != "card_details"
         }
         for line in df
     ]
