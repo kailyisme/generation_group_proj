@@ -87,7 +87,7 @@ def product_data(conn, transform_data):
             items_ids.append({"product_uuid": product_uuid, "temp_id": row["temp_id"]})
     return items_ids
 
-def transcation(conn, transform_data):
+def transcation(conn, transform_data, uuidgen= uuidgen):
 
     transaction_uuid_out = []
 
