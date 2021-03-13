@@ -1,14 +1,12 @@
 from src.db_handlers import db_connection as db
 from uuid import uuid4 as uuidgen
 
-
 def add_temp_id(transform_data):
     temp_id = 1
     for dic in transform_data:
         dic["temp_id"] = temp_id
         temp_id += 1
     return transform_data
-
 
 def store_load(conn, transform_data):
 
@@ -45,7 +43,6 @@ def type_load(conn, transform_data):
                 item_type_uuid = item_type_uuid[0]
 
     return transform_data
-
 
 def product_data(conn, transform_data):
     items_ids = []
@@ -90,8 +87,7 @@ def product_data(conn, transform_data):
             items_ids.append({"product_uuid": product_uuid, "temp_id": row["temp_id"]})
     return items_ids
 
-
-def transcation(conn, transform_data):
+def transcation(conn, transform_data, uuidgen= uuidgen):
 
     transaction_uuid_out = []
 
