@@ -3,7 +3,8 @@ import csv
 import boto3
 from src.etl import extract as ex
 from src.etl import transform as tr
-
+from src.etl.load import load_db
+from src.db_handlers import db_init
 
 def execute(event, context):
     print(event)
@@ -16,5 +17,8 @@ def execute(event, context):
 
     df = ex.extract_csv(raw)
     df = tr.transform_run(df)
+    
+    conn = db_init.init_db()
+    load_db(conn, df)
     
     print(df[:3])

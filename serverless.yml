@@ -1,7 +1,8 @@
 service: lifehakk-group-project
-useDotenv: true
+# useDotenv: true
 plugins:
   - serverless-python-requirements
+  - serverless-dotenv-plugin
 frameworkVersion: '2'
 
 provider:
