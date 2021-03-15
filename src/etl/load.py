@@ -1,5 +1,5 @@
 from src.db_handlers import db_connection as db
-from uuid import uuid4 as uuidgen
+import uuid
 
 def add_temp_id(transform_data):
     temp_id = 1
@@ -16,7 +16,7 @@ def store_load(conn, transform_data):
         store_uuid = db.fetch_entry(conn, "store", ["location"], [store])
 
         if store_uuid == None:
-            store_uuid = str(uuidgen())
+            store_uuid = str(uuid.uuid4())
             db.insert_into_table(conn, "store", {"id": store_uuid, "location": store})
         else:
             store_uuid = store_uuid[0]
@@ -35,7 +35,7 @@ def type_load(conn, transform_data):
                 item_type = item["type"]
             item_type_uuid = db.fetch_entry(conn, "product_type", ["name"], [item_type])
             if item_type_uuid == None:
-                item_type_uuid = str(uuidgen())
+                item_type_uuid = str(uuid.uuid4())
                 db.insert_into_table(
                     conn, "product_type", {"id": item_type_uuid, "name": item_type}
                 )
@@ -69,7 +69,7 @@ def product_data(conn, transform_data):
                 [item_type_uuid[0], item_name, item_size, item_price],
             )
             if product_uuid == None:
-                product_uuid = str(uuidgen())
+                product_uuid = str(uuid.uuid4())
                 db.insert_into_table(
                     conn,
                     "product",
@@ -87,7 +87,7 @@ def product_data(conn, transform_data):
             items_ids.append({"product_uuid": product_uuid, "temp_id": row["temp_id"]})
     return items_ids
 
-def transcation(conn, transform_data, uuidgen= uuidgen):
+def transcation(conn, transform_data):
 
     transaction_uuid_out = []
 
@@ -99,7 +99,7 @@ def transcation(conn, transform_data, uuidgen= uuidgen):
 
         store = row["location"]
         store_uuid = db.fetch_entry(conn, "store", ["location"], [store])
-        transaction_uuid = str(uuidgen())
+        transaction_uuid = str(uuid.uuid4())
 
         db.insert_into_table(
             conn,
@@ -126,7 +126,7 @@ def basket(conn, items_ids, transaction_uuid_out):
         for item in items_ids:
             if item["temp_id"] == dic["temp_id"]:
 
-                basket_uuid = str(uuidgen())
+                basket_uuid = str(uuid.uuid4())
 
                 db.insert_into_table(
                     conn,
