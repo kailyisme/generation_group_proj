@@ -137,9 +137,10 @@ def test_product_data(mock_insert, mock_fetch):
 
 @patch("src.db_handlers.db_connection.fetch_entry")
 @patch("src.db_handlers.db_connection.insert_into_table")
-def test_transcation(mock_insert, mock_fetch):
+@patch("uuid.uuid4")
+def test_transcation(mock_uuid, mock_insert, mock_fetch):
 
-    mock_uuid = Mock()
+    # mock_uuid = Mock()
     mock_uuid.return_value = "e8980e54-91bf-4132-93d2-10919142f434"
     mock_data = [
         {
@@ -158,7 +159,7 @@ def test_transcation(mock_insert, mock_fetch):
         {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
     ]
 
-    actual = transcation(mock_conn, mock_data, mock_uuid)
+    actual = transcation(mock_conn, mock_data)
     print(actual)
     assert actual == expected
 
