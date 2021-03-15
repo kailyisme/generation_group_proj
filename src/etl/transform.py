@@ -1,6 +1,3 @@
-import src.etl.extract as ex
-
-
 def cleaning_csv(df):
     df = [
         {
@@ -11,7 +8,6 @@ def cleaning_csv(df):
         for line in df
     ]
     return df
-
 
 def transform(df):
     for dic in df:
@@ -38,12 +34,7 @@ def transform(df):
         dic["items"] = new_items
     return df
 
-
 def transform_run(extract):
     df = cleaning_csv(extract)
     transform_data = transform(df)
     return transform_data
-
-
-# if __name__ == "__main__":
-#     print(transform(cleaning_csv(ex.extract_csv(ex.filename)))[:3])
