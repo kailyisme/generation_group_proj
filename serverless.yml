@@ -3,7 +3,6 @@ service: lifehakk-group-project
 plugins:
   - serverless-python-requirements
   - serverless-dotenv-plugin
-frameworkVersion: '2'
 
 provider:
   name: aws
@@ -15,13 +14,12 @@ provider:
     securityGroupIds:
       - sg-00d713bdedcadb4bc
     subnetIds:
-      - subnet-0289d4772717bc9cc
-      - subnet-0d517b54b1a9e8898
-
+      - subnet-093ac2839ae3deb68
 
 functions:
   execute:
-    handler: src/__main__.execute
+    handler: src/handler.execute
+    timeout: 10
     events:
       - s3:
           bucket: lifehakk
