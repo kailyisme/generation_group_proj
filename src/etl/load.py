@@ -1,5 +1,6 @@
 from src.db_handlers import db_connection as db
 import uuid
+import datetime
 
 def add_temp_id(transform_data):
     temp_id = 1
@@ -92,7 +93,7 @@ def transaction(conn, transform_data):
 
     for row in transform_data:
 
-        date_and_time = row["Date-Time"]
+        date_and_time = datetime.datetime.strptime(row["Date-Time"], "%Y-%m-%d %H:%M:%S").timestamp()
         payment_type = row["payment_type"]
         total_amount = row["total_amount"]
 
