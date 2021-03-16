@@ -7,8 +7,6 @@ from src.etl.load import load_db
 from src.db_handlers import db_init
 
 def execute(event, context):
-    print(event)
-    # parsed_event = json.loads(event)
     bucket_name = event["Records"][0]["s3"]["bucket"]["name"]
     key = event["Records"][0]["s3"]["object"]["key"]
     s3_res = boto3.resource("s3")
