@@ -1,3 +1,5 @@
+import datetime
+
 def cleaning_csv(df):
     df = [
         {
@@ -11,6 +13,7 @@ def cleaning_csv(df):
 
 def transform(df):
     for dic in df:
+        dic["Date-Time"] = int(datetime.datetime.strptime(dic["Date-Time"], "%Y-%m-%d %H:%M:%S").timestamp())
         dic["items"] = dic["items"].split(",")
         new_items = []
         repeat = len(dic["items"]) // 3
