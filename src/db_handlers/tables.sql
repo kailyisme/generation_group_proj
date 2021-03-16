@@ -6,16 +6,15 @@ CREATE TABLE IF NOT EXISTS product_type (
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
-DO $$ BEGIN
-    CREATE TYPE SIZE AS enum('Small', 'Regular', 'Large');
-EXCEPTION
-    WHEN duplicate_object THEN null;
-END $$;
+-- CREATE TABLE IF NOT EXISTS product_size (
+--     id UUID PRIMARY KEY,
+--     name varchar(255) NOT NULL
+-- );
 CREATE TABLE IF NOT EXISTS product (
     id UUID PRIMARY KEY,
     type_id UUID REFERENCES product_type(id),
     name VARCHAR(255) NOT NULL,
-    size SIZE NOT NULL DEFAULT 'Regular',
+    size VARCHAR(255),
     price NUMERIC(6, 2) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS transaction (
