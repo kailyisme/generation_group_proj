@@ -19,19 +19,19 @@ def execute(event, context):
     except Exception as e:
         print(e)
 
-    HOST = os.environ.get("POSTGRES_HOST")
-    USER = os.environ.get("POSTGRES_USER")
-    PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-    DB = os.environ.get("POSTGRES_DB")
     PORT = os.environ.get("POSTGRES_PORT")
+    PORT1 = os.environ.["POSTGRES_PORT"]
+    DB = os.environ.get("POSTGRES_DB")
     DB1 = os.environ["POSTGRES_DB"]
-    print(db1)
+    
     
     print(PORT)
+    print("port1 after this ")
+    print(PORT1)
+    
     print(DB)
-    print(PASSWORD)
-    print(USER)
-    print(HOST)
+    print("port1 after this ")
+    print(db1)
     
     df = ex.extract_csv(raw)
     df = tr.transform_run(df)
@@ -39,4 +39,4 @@ def execute(event, context):
     conn = db_init.init_db()
     load_db(conn, df)
     
-    print(df[:3])
+    # print(df[:3])
