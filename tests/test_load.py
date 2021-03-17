@@ -4,7 +4,7 @@ from src.etl.load import (
     store_load,
     type_load,
     product_data,
-    transcation,
+    transaction,
     basket,
 )
 
@@ -138,7 +138,7 @@ def test_product_data(mock_insert, mock_fetch):
 @patch("src.db_handlers.db_connection.fetch_entry")
 @patch("src.db_handlers.db_connection.insert_into_table")
 @patch("uuid.uuid4")
-def test_transcation(mock_uuid, mock_insert, mock_fetch):
+def test_transaction(mock_uuid, mock_insert, mock_fetch):
 
     # mock_uuid = Mock()
     mock_uuid.return_value = "e8980e54-91bf-4132-93d2-10919142f434"
@@ -159,7 +159,7 @@ def test_transcation(mock_uuid, mock_insert, mock_fetch):
         {"transaction_uuid": "e8980e54-91bf-4132-93d2-10919142f434", "temp_id": 1}
     ]
 
-    actual = transcation(mock_conn, mock_data)
+    actual = transaction(mock_conn, mock_data)
     print(actual)
     assert actual == expected
 

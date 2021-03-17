@@ -1,3 +1,28 @@
+# Distribution / packaging
+.Python
+*.pyc
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Serverless directories
+.serverless
+package.json
+package-lock.json
+
+# Old
 .vscode
 .env
 .venv
@@ -7,3 +32,6 @@ __pycache__/
 .DS_Store
 *.DS_Store
 .pytest_cache
+
+node_modules/
+.devcontainer

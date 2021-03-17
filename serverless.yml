@@ -1,0 +1,42 @@
+service: lifehakk-group-project
+# useDotenv: true
+plugins:
+  - serverless-python-requirements
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  region: eu-west-1
+  role: arn:aws:iam::534900169478:role/kaily_lambda_exec_role
+  vpc:
+    securityGroupIds:
+      - sg-00d713bdedcadb4bc
+    subnetIds:
+      - subnet-093ac2839ae3deb68
+
+functions:
+  execute:
+    handler: src/handler.execute
+    timeout: 10
+    events:
+      - s3:
+          bucket: lifehakk
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: incoming/
+            - suffix: .csv
+
+package:
+  exclude:
+    - .gitignore
+    - .vscode/**
+    - node_modules
+    - __pycache__
+    - data/**
+    - .venv/**
+    - docker-compose.yml
+    - readme.*
+    - .pytest_cache/**
+    - tests/**

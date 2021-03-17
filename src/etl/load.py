@@ -22,7 +22,6 @@ def store_load(conn, transform_data):
             store_uuid = store_uuid[0]
     return transform_data
 
-
 def type_load(conn, transform_data):
 
     for row in transform_data:
@@ -87,7 +86,7 @@ def product_data(conn, transform_data):
             items_ids.append({"product_uuid": product_uuid, "temp_id": row["temp_id"]})
     return items_ids
 
-def transcation(conn, transform_data):
+def transaction(conn, transform_data):
 
     transaction_uuid_out = []
 
@@ -145,5 +144,5 @@ def load_db(conn, transform_data):
     store_load(conn, transform_data)
     type_load(conn, transform_data)
     items_id = product_data(conn, transform_data)
-    transaction_uuid_out = transcation(conn, transform_data)
+    transaction_uuid_out = transaction(conn, transform_data)
     basket(conn, items_id, transaction_uuid_out)

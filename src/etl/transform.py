@@ -1,5 +1,4 @@
-import src.etl.extract as ex
-
+import datetime
 
 def cleaning_csv(df):
     df = [
@@ -12,9 +11,9 @@ def cleaning_csv(df):
     ]
     return df
 
-
 def transform(df):
     for dic in df:
+        dic["Date-Time"] = int(datetime.datetime.strptime(dic["Date-Time"], "%Y-%m-%d %H:%M:%S").timestamp())
         dic["items"] = dic["items"].split(",")
         new_items = []
         repeat = len(dic["items"]) // 3
@@ -38,12 +37,7 @@ def transform(df):
         dic["items"] = new_items
     return df
 
-
 def transform_run(extract):
     df = cleaning_csv(extract)
     transform_data = transform(df)
     return transform_data
-
-
-# if __name__ == "__main__":
-#     print(transform(cleaning_csv(ex.extract_csv(ex.filename)))[:3])
