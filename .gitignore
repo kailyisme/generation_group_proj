@@ -19,7 +19,6 @@ var/
 
 # Serverless directories
 .serverless
-package.json
 package-lock.json
 
 # Old
@@ -35,3 +34,4 @@ __pycache__/
 
 node_modules/
 .devcontainer
+node_modules

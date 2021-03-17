@@ -1,0 +1,25 @@
+{
+  "name": "lifehakk_group_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iw-de-man-2/liFeHaKK_group_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iw-de-man-2/liFeHaKK_group_project/issues"
+  },
+  "homepage": "https://github.com/iw-de-man-2/liFeHaKK_group_project#readme",
+  "dependencies": {
+    "serverless-python-requirements": "^5.1.0"
+  }
+}
