@@ -20,17 +20,15 @@ def execute(event, context):
         print(e)
 
     PORT = os.environ.get("POSTGRES_PORT")
-    PORT1 = os.environ.["POSTGRES_PORT"]
-    DB = os.environ.get("POSTGRES_DB")
-    DB1 = os.environ["POSTGRES_DB"]
-    
-    
     print(PORT)
-    print("port1 after this ")
-    print(PORT1)
-    
+    DB = os.environ.get("POSTGRES_DB")
     print(DB)
-    print("port1 after this ")
+    
+    print("no get after this ")
+    
+    PORT1 = os.environ.("POSTGRES_PORT")
+    DB1 = os.environ["POSTGRES_DB"]
+    print(PORT1)
     print(db1)
     
     df = ex.extract_csv(raw)
