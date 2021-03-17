@@ -2,7 +2,7 @@
   "name": "lifehakk_group_project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/handler.py",
   "directories": {
     "test": "tests"
   },
