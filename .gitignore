@@ -19,7 +19,6 @@ var/
 
 # Serverless directories
 .serverless
-package-lock.json
 
 # Old
 .vscode

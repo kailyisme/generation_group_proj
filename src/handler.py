@@ -22,6 +22,7 @@ def execute(event, context):
     PORT = os.environ.get("PORT")
     print(PORT)
     DB = os.environ.get("DB")
+    print("asd")
     print(DB)
     
     
