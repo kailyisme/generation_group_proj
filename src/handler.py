@@ -5,9 +5,7 @@ from src.etl import extract as ex
 from src.etl import transform as tr
 from src.etl.load import load_db
 from src.db_handlers import db_init
-import os 
-from dotenv import load_dotenv
-from dotenv.main import get_key
+
 
 def execute(event, context):
     try:
@@ -19,8 +17,6 @@ def execute(event, context):
     except Exception as e:
         print(e)
 
-    PORT = os.environ.get("POSTGRES_PORT")
-    print(PORT)
     
     df = ex.extract_csv(raw)
     df = tr.transform_run(df)
