@@ -1,5 +1,4 @@
-name: deploy-aws-lambda
-
+name: Deploy master branch
 on:
   push:
     branches:
@@ -7,24 +6,29 @@ on:
       - h/gitci
 jobs:
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [14.x]
+        python-version: [3.8]
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
+      - name: Use Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Dependencies
-        run: npm install
-  
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
-      - name: Serverless Deploy
-        run: npm run deploy
+      - run: npm ci
+      - run: npx serverless deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+          POSTGRES_HOST: ${{ secrets.HOST }}
+          POSTGRES_PORT: ${{ secrets.PORT }}
+          POSTGRES_USER: ${{ secrets.USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PASS }}
+          POSTGRES_DB: ${{ secrets.DB }}
