@@ -9,8 +9,7 @@ provider:
   runtime: python3.8
   lambdaHashingVersion: 20201221
   region: eu-west-1
-  role: arn:aws:iam::534900169478:role/ali-githubactions-2-demo-dev-eu-west-1-lambdaRole
-  # role: arn:aws:iam::534900169478:role/kaily_lambda_exec_role
+  role: arn:aws:iam::534900169478:role/kaily_lambda_exec_role
   vpc:
     securityGroupIds:
       - sg-00d713bdedcadb4bc
