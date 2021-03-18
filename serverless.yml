@@ -28,11 +28,11 @@ functions:
             - prefix: incoming/
             - suffix: .csv
     environment:
-      POSTGRES_HOST: ${ env: HOST }
-      POSTGRES_PORT: ${ env: PORT }
-      POSTGRES_USER: ${ env: USER }
-      POSTGRES_PASSWORD: ${ env: PASS }
-      POSTGRES_DB: ${ env: DB }
+      POSTGRES_HOST: ${ HOST }
+      POSTGRES_PORT: ${ PORT }
+      POSTGRES_USER: ${ USER }
+      POSTGRES_PASSWORD: ${ PASS }
+      POSTGRES_DB: ${ DB }
 
 package:
   exclude:
