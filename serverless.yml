@@ -30,9 +30,9 @@ functions:
     environment:
       HOST: ${ssm:/host}
       PORT: 5439
-      DB_PASSWORD: ${ssm:/redshift-cluster-master-pass~true}
-      DB_USER: ${ssm:/redshift-user~true}
-      DB: ${ssm:/database-name-team-4}
+      DB_PASSWORD: ${ssm:redshift-cluster-master-pass~true}
+      DB_USER: ${ssm:redshift-user~true}
+      DB: ${ssm:database-name-team-4}
 
 package:
   exclude:
