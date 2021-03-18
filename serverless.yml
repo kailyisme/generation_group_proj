@@ -28,11 +28,11 @@ functions:
             - prefix: incoming/
             - suffix: .csv
     environment:
-      HOST: ${env:host}
+      HOST: ${env:HOST}
       PORT: 5439
-      DB_PASSWORD: ${env:pass}
-      DB_USER: ${env:user}
-      DB: ${env:database}
+      DB_PASSWORD: ${env:PASS}
+      DB_USER: ${env:USER}
+      DB: ${env:DB}
 
 package:
   exclude:
