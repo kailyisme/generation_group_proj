@@ -24,7 +24,7 @@ def execute(event, context):
     DB = os.environ.get("DB")
     print(DB)
     
-    print("no get after this ")
+    
     
     df = ex.extract_csv(raw)
     df = tr.transform_run(df)
