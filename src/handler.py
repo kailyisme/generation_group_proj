@@ -19,18 +19,12 @@ def execute(event, context):
     except Exception as e:
         print(e)
 
-    PORT = os.environ.get("PORT")
+    PORT = os.environ.get("POSTGRES_PORT")
     print(PORT)
-    DB = os.environ.get("DB")
-    print("asd")
-    print(DB)
-    
-    
     
     df = ex.extract_csv(raw)
     df = tr.transform_run(df)
-    print(df[1])
     conn = db_init.init_db()
     load_db(conn, df)
     
-    # print(df[:3])
+    print(df[:2])
