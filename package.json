@@ -1,0 +1,28 @@
+{
+  "name": "lifehakk_group_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/handler.py",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iw-de-man-2/liFeHaKK_group_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iw-de-man-2/liFeHaKK_group_project/issues"
+  },
+  "homepage": "https://github.com/iw-de-man-2/liFeHaKK_group_project#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^2.30.3",
+    "serverless-dotenv-plugin": "^3.8.1",
+    "serverless-python-requirements": "^5.1.0"
+  }
+}
